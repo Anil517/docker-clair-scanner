@@ -1,13 +1,15 @@
-services:
-- registry.gitlab.com/jitesoft/dockerfiles/docker/dind:latest
-image: registry.gitlab.com/jitesoft/dockerfiles/docker:latest
+
 
 build:
+  services:
+    - registry.gitlab.com/jitesoft/dockerfiles/docker/dind:latest
+  image: registry.gitlab.com/jitesoft/dockerfiles/docker:latest
+  variables:
+    VERSION: "v11"
   before_script:
   - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token registry.gitlab.com --password-stdin
   - echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USER} --password-stdin
   script:
-  - VERSION="v11"
   - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA} --label "com.jitesoft.app.clair-scanner.version=${VERSION}" --build-arg "SCANNER_VERSION=${VERSION}" .
   - TAGS="${CI_REGISTRY_IMAGE}:latest jitesoft/clair-scanner:latest ${CI_REGISTRY_IMAGE}:${VERSION} jitesoft/clair-scanner:${VERSION}"
   - |
