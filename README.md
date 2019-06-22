@@ -10,8 +10,7 @@ Call the image with the flags you wish to use:
 docker run --rm jitesoft/clair-scanner -h
 ```
 
-Check out the [clair-scanner](https://github.com/arminc/clair-scanner) 
-repository for more information about the application.
+Check out the [clair-scanner](https://github.com/arminc/clair-scanner) repository for more information about the application.
 
 ## Tags
 
