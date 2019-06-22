@@ -1,5 +1,5 @@
 include:
-  - https://gitlab.com/jitesoft/gitlab-ci-lib/raw/master/container_scan_v2.yml
+  - https://gitlab.com/jitesoft/gitlab-ci-lib/raw/master/container_scan.yml
 
 stages:
   - build
@@ -13,8 +13,8 @@ build:
   variables:
     VERSION: "v11"
   before_script:
-  - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token registry.gitlab.com --password-stdin
-  - echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USER} --password-stdin
+    - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token registry.gitlab.com --password-stdin
+    - echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USER} --password-stdin
   script:
   - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA} --label "com.jitesoft.app.clair-scanner.version=${VERSION}" --build-arg "SCANNER_VERSION=${VERSION}" .
   - TAGS="${CI_REGISTRY_IMAGE}:latest jitesoft/clair-scanner:latest ${CI_REGISTRY_IMAGE}:${VERSION} jitesoft/clair-scanner:${VERSION}"
@@ -33,3 +33,4 @@ scan:
   extends: .container_scanning
   variables:
     SCANNING_IMAGE_NAME: ${CI_REGISTRY_IMAGE}:latest
+    SCANNING_CLAIR_CONFIG: https://gist.githubusercontent.com/Johannestegner/556ed344d6fa5314fac0f0e68ea4c822/raw/847f41128eb936abcd9b5faf135f52d495cbdecc/ClairConfig.yml
