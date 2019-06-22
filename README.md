@@ -23,3 +23,9 @@ This image follows the [Jitesoft image label specification 1.0.0](https://gitlab
 ### Image files
 
 Image files can be found at [GitLab](https://gitlab.com/jitesoft/dockerfiles/clair-scanner) and [GitHub](https://github.com/jitesoft/docker-clair-scanner).
+
+## Licenses
+
+Clair-scanner is released under the Apache License v2.
+
+The files in this repository is released under the MIT license.
