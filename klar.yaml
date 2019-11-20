@@ -9,7 +9,7 @@ spec:
       - name: klar
         image: leahnp/klar-scratch
         args:
-          - "env.test"
+          - "{{env.test}}"
         env:
           - name: CLAIR_ADDR
             value: "10.60.9.240:6060"
